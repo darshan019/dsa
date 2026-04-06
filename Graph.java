@@ -320,6 +320,55 @@ public class Graph {
         dfsOfEnclaves(grid, row, col - 1, vis);
     }
 
+    public boolean isBipartite(int[][] grid) {
+        int[] color = new int[grid.length];
+        Arrays.fill(color, -1);
+
+        for (int i = 0; i < grid.length; i++) {
+            if (color[i] == -1) {
+                if (!checkBipartiteBFS(i, grid, color)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean checkBipartiteDFS(int node, int col, int[][] grid, int[] color) {
+        color[node] = col;
+
+        for (int it : grid[node]) {
+            if (color[it] == -1) {
+                if (!checkBipartiteDFS(it, 1 - col, grid, color))
+                    return false;
+            } else if (color[it] == col) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkBipartiteBFS(int start, int[][] grid, int[] color) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
+        color[start] = 0;
+
+        while (!q.isEmpty()) {
+            int node = q.poll();
+
+            for (int neighbor : grid[node]) {
+                if (color[neighbor] == -1) {
+                    color[neighbor] = 1 - color[node];
+                    q.add(neighbor);
+                } else if (color[neighbor] == color[node]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 }
 
 class Triple {
