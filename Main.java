@@ -14,7 +14,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
         Main main = new Main();
-        System.out.println(main.maxProfit(new int[] { 1, 7, 6, 4, 3 }));
+        // System.out.println(main.maxProfit(new int[] { 1, 7, 6, 4, 3 }));
+
+        System.out.println(main.calc(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6))));
 
     }
 
@@ -319,6 +321,24 @@ public class Main {
             len = Math.max(1 + longestIncreasingSubSeq(arr, curr + 1, curr), len);
 
         return len;
+    }
+
+    public int calc(List<Integer> arr) {
+        int count = 0, index = -1;
+
+        while (arr.size() != 1) {
+            if (count == 3) {
+                arr.remove(index);
+                count = 0;
+                index--;
+            }
+            index++;
+            count++;
+            if (index == arr.size())
+                index = 0;
+        }
+
+        return arr.get(0);
     }
 
 }

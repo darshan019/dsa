@@ -369,6 +369,24 @@ public class Graph {
         return true;
     }
 
+    public boolean detectCycleDir(int[][] grid, int node, boolean[] vis, boolean[] rec) {
+        vis[node] = true;
+        rec[node] = true;
+
+        for (int it : grid[node]) {
+            if (!vis[it]) {
+                if (detectCycleDir(grid, it, vis, rec))
+                    return true;
+            } else if (rec[it]) {
+                return true;
+            }
+        }
+
+        rec[node] = false;
+
+        return false;
+    }
+
 }
 
 class Triple {
