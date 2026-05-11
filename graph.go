@@ -81,11 +81,11 @@ func TestGraph() {
 
 func isBipartiteBFS(V int, list map[int][]int) bool {
 	color := make([]int, V)
-	for i := 0; i < V; i++ {
+	for i := range V {
 		color[i] = -1 // colors array of each node index initialized with -1
 	}
 
-	for i := 0; i < V; i++ {
+	for i := range V {
 		if color[i] == -1 {
 			q := []int{i}
 			color[i] = 0

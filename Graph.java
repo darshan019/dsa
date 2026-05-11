@@ -349,6 +349,7 @@ public class Graph {
         return true;
     }
 
+
     private boolean checkBipartiteBFS(int start, int[][] grid, int[] color) {
         Queue<Integer> q = new LinkedList<>();
         q.add(start);
@@ -385,6 +386,34 @@ public class Graph {
         rec[node] = false;
 
         return false;
+    }
+
+    public void dfsTopo(int i, int[] vis, Stack<Integer> st, ArrayList<ArrayList<Integer>> adj) {
+        vis[i] = 1;
+        for (int it : adj.get(i)) {
+            dfsTopo(it, vis, st, adj);
+        }
+        st.push(i);
+    }
+
+
+    public ArrayList<Integer> topoSort(ArrayList<ArrayList<Integer>> adj, int V) {
+        Stack<Integer> st = new Stack<>();
+        int vis[] = new int[V];
+
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfsTopo(i, vis, st, adj)
+            }
+        }
+
+        int ans = new int[V];
+        int i = 0;
+        while (i < V) {
+            ans[i++] = st.peek();
+            st.pop();
+        }
     }
 
 }
