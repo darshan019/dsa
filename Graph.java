@@ -391,7 +391,7 @@ public class Graph {
     public void dfsTopo(int i, int[] vis, Stack<Integer> st, ArrayList<ArrayList<Integer>> adj) {
         vis[i] = 1;
         for (int it : adj.get(i)) {
-            dfsTopo(it, vis, st, adj);
+            if (vis[it] == 0) dfsTopo(it, vis, st, adj);
         }
         st.push(i);
     }
@@ -410,7 +410,7 @@ public class Graph {
 
         int ans = new int[V];
         int i = 0;
-        while (i < V) {
+        while (!st.isEmpty()) {
             ans[i++] = st.peek();
             st.pop();
         }
